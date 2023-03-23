@@ -16,4 +16,8 @@ object RetrofitInstance {
     val api: GetUserName by lazy {
         retrofit.create(GetUserName::class.java)
     }
+
+    val detailApi: GetDetailUser by lazy {
+        retrofit.create(GetDetailUser::class.java)
+    }
 }

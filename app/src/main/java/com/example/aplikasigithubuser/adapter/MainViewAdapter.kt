@@ -27,6 +27,10 @@ class MainViewAdapter(private val context: Context, private var DataSet: List<Gi
         notifyDataSetChanged()
     }
 
+    fun getData(): List<GithubUserModel> {
+        return DataSet
+    }
+
     class MainViewHolder(private val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
         val tvItemProfile: TextView = binding.tvItemProfile
         val ivItemProfile: ImageView = binding.IVItemProfile
@@ -48,6 +52,7 @@ class MainViewAdapter(private val context: Context, private var DataSet: List<Gi
                 id = DataSet[position].id,
                 avatar_url = DataSet[position].avatar_url,
                 followers_url = DataSet[position].followers_url,
+                following_url = DataSet[position].following_url,
             )
             intent.putExtra("DataUserItem", data as Serializable)
             context.startActivity(intent)

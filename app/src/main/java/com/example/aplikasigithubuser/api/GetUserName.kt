@@ -1,15 +1,20 @@
 package com.example.aplikasigithubuser.api
 
-import com.example.aplikasigithubuser.model.GithubFollowersResponse
-import com.example.aplikasigithubuser.model.GithubUserModel
-import retrofit2.Response
+import com.example.aplikasigithubuser.model.GithubUserResponse
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 interface GetUserName {
-    @GET("/users/{username}/followers")
-    @Headers("Authorization: token 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")
-    suspend fun getFollowers(@Path("username") username: String): List<GithubUserModel>
+    @GET("/search/users")
+    @Headers("Authorization: token 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")
+    suspend fun getUser(@Query("q") username: String): GithubUserResponse
+}
+
+interface GetDetailUser {
+    @GET("/users/{username}")
+    @Headers("Authorization: token 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")
+    suspend fun getDetail(@Path("username") username: String): GithubUserResponse
 }
