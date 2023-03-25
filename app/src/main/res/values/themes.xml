@@ -1,6 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
+<<<<<<< HEAD
     <style name="Theme.AplikasiGithubUser" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+=======
+    <style name="Theme.GithubUser" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+>>>>>>> 4f6385be51746be08655511a86d66c3a349693ad
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -14,6 +18,7 @@
         <!-- Customize your theme here. -->
     </style>
 
+<<<<<<< HEAD
     <style name="Theme.AplikasiGithubUser.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -22,4 +27,10 @@
     <style name="Theme.AplikasiGithubUser.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.AplikasiGithubUser.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+=======
+
+    <style name="Theme.GithubUser.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.GithubUser.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+>>>>>>> 4f6385be51746be08655511a86d66c3a349693ad
 </resources>

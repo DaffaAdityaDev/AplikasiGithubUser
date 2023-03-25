@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -7,11 +8,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".DetailUserActivity">
+=======
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".DetailUser">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+>>>>>>> 4f6385be51746be08655511a86d66c3a349693ad
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             android:orientation="vertical">
 
             <ImageView
@@ -39,15 +54,71 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="TextView" />
+=======
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_image_detail_user"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                app:shapeAppearanceOverlay="@style/RoundedFull"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/tv_name_detail_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:text="@string/no_data" />
+
+            <TextView
+                android:id="@+id/tv_github_name_detail_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_horizontal"
+                android:text="@string/no_data" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_total_followers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="@string/no_data" />
+
+                <TextView
+                    android:id="@+id/tv_total_following"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="@string/no_data" />
+>>>>>>> 4f6385be51746be08655511a86d66c3a349693ad
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
+<<<<<<< HEAD
             android:layout_width="411dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
             tools:context=".MainActivity">
+=======
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+>>>>>>> 4f6385be51746be08655511a86d66c3a349693ad
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabs"
@@ -61,6 +132,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
+<<<<<<< HEAD
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
+=======
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+>>>>>>> 4f6385be51746be08655511a86d66c3a349693ad

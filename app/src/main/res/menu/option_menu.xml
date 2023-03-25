@@ -5,7 +5,14 @@
     <item
         android:id="@+id/search"
         android:icon="@drawable/baseline_search_24"
+<<<<<<< HEAD
         android:title="Search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="collapseActionView|always" />
+=======
+        android:title="@string/search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="collapseActionView|always" />
+
+>>>>>>> 4f6385be51746be08655511a86d66c3a349693ad
 </menu>

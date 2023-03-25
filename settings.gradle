@@ -12,5 +12,9 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+<<<<<<< HEAD
 rootProject.name = "AplikasiGithubUser"
+=======
+rootProject.name = "GithubUser"
+>>>>>>> 4f6385be51746be08655511a86d66c3a349693ad
 include ':app'
