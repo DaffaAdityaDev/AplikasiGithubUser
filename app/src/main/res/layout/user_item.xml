@@ -1,11 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tvItem"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp"
-    android:textAppearance="?android:attr/textAppearanceListItemSmall"
-    tools:text="Review" />
+    android:layout_margin="10dp"
+    android:background="@drawable/border_radius"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_user_item"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:contentDescription="User_image_item"
+        app:shapeAppearanceOverlay="@style/RoundedSquare"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:gravity="center|start"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            tools:text="Name" />
+
+        <TextView
+            android:id="@+id/tv_github_url"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Url"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>
