@@ -1,24 +1,31 @@
 package com.example.githubuser
 
 import android.app.SearchManager
+import android.content.Context.SEARCH_SERVICE
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import androidx.recyclerview.widget.DividerItemDecoration
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuser.databinding.ActivityMainBinding
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.githubuser.adapter.UserAdapter
+import com.example.githubuser.api.ApiConfig
+import com.example.githubuser.viewmodel.MainActivityViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import androidx.appcompat.widget.SearchView
-import com.example.githubuser.adapter.UserAdapter
-import com.example.githubuser.api.ApiConfig
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: MainActivityViewModel
 
     companion object {
         private const val TAG = "MainActivity"
@@ -33,13 +40,17 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.title = "Home"
         supportActionBar?.setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.teal_700)))
 
+        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+
         val layoutManager = LinearLayoutManager(this)
         binding.rvUsers.layoutManager = layoutManager
+
 
         findUser()
     }
 
-    private fun findUser(name: String = QueryUsername) {
+    fun findUser(name: String = QueryUsername) {
+        showLoading(true)
         val client = ApiConfig.getApiService().getUser(name)
         client.enqueue(object : Callback<UserResponse> {
             override fun onResponse(
@@ -49,12 +60,14 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val listUserBody = response.body()
                     if (listUserBody != null) {
+                        showLoading(false)
                         setListUsersData(listUserBody.items)
                     }
                 }
             }
 
             override fun onFailure(call: retrofit2.Call<UserResponse>, t: Throwable) {
+                showLoading(false)
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })
@@ -69,13 +82,13 @@ class MainActivity : AppCompatActivity() {
         binding.rvUsers.adapter = userAdapter
     }
 
-//    private fun showLoading(state: Boolean) {
-//        if (state) {
-//            binding.progressBar.visibility = View.VISIBLE
-//        } else {
-//            binding.progressBar.visibility = View.GONE
-//        }
-//    }
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.option_menu, menu)

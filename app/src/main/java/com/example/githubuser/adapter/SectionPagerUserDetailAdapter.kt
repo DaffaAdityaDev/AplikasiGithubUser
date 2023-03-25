@@ -16,8 +16,8 @@ class SectionPagerUserDetailAdapter(activity: AppCompatActivity, name: String?) 
     override fun createFragment(position: Int): Fragment {
         var fragment: Fragment = FollowFragment()
         fragment.arguments = Bundle().apply {
-            putInt(FollowFragment.ARG_SECTION_NUMBER, position + 1)
-            putString("bacot", username)
+            putInt(FollowFragment.ARG_SECTION_NUMBER, position)
+            putString(FollowFragment.ARG_USERNAME, username)
         }
 
         return fragment as Fragment

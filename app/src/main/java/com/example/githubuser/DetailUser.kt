@@ -3,6 +3,7 @@ package com.example.githubuser
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -69,6 +70,7 @@ class DetailUser : AppCompatActivity() {
     }
 
     private fun getDetailUser(username: String?) {
+        showLoading(true)
         val client = ApiConfig.getApiService().getUseDetail(username.toString())
         client.enqueue(object : Callback<UserDetailResponse> {
             override fun onResponse(
@@ -78,18 +80,22 @@ class DetailUser : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val listUserBody = response.body()
                     if (listUserBody != null) {
+                        showLoading(false)
                         setBindingData(listUserBody)
                     } else {
+                        showLoading(false)
                         Log.e(TAG, "onResponse: ${response.message()}")
                     }
 
                     if (response.message() == "Not Found") {
+                        showLoading(false)
                         Log.e(TAG, "onResponse: ${response.message()}")
                     }
                 }
             }
 
             override fun onFailure(call: Call<UserDetailResponse>, t: Throwable) {
+                showLoading(false)
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })
@@ -108,6 +114,14 @@ class DetailUser : AppCompatActivity() {
         }.attach()
 
         supportActionBar?.elevation = 0f
+    }
+
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
 }
