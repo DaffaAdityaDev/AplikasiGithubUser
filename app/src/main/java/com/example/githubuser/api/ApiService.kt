@@ -8,7 +8,7 @@ import retrofit2.http.*
 interface ApiService {
 
     companion object {
-        const val AUTHTOKEN = "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"
+        const val AUTHTOKEN = "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"
     }
     @GET("search/users")
     @Headers("Authorization: token $AUTHTOKEN")
