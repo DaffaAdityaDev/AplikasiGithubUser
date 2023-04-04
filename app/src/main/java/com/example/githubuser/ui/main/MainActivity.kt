@@ -1,6 +1,7 @@
 package com.example.githubuser.ui.main
 
 import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
@@ -8,9 +9,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.View
+import android.widget.CompoundButton
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuser.databinding.ActivityMainBinding
 import androidx.appcompat.widget.SearchView
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.ViewModelProvider
 import com.example.githubuser.ItemsItem
 import com.example.githubuser.R
 import com.example.githubuser.UserResponse
@@ -19,11 +26,14 @@ import com.example.githubuser.api.ApiConfig
 import com.example.githubuser.database.FavoriteRoomDatabase
 import com.example.githubuser.database.FavoriteUser
 import com.example.githubuser.ui.favorite.FavoriteUserList
+import com.example.githubuser.ui.settings.*
+import com.google.android.material.switchmaterial.SwitchMaterial
 import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -47,9 +57,19 @@ class MainActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         binding.rvUsers.layoutManager = layoutManager
 
-        insertFavoriteUser(FavoriteUser("test", "urlTest"))
-
         findUser()
+
+        val pref = SettingPreferences.getInstance(dataStore)
+        val settingViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(SettingViewModel::class.java)
+
+        settingViewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
+
     }
     private fun insertFavoriteUser(favoriteUser: FavoriteUser) {
         coroutineScope.launch {
@@ -151,6 +171,14 @@ class MainActivity : AppCompatActivity() {
         val menuFavorite = menu?.findItem(R.id.favorite)
         menuFavorite?.setOnMenuItemClickListener {
             val intent = Intent(this, FavoriteUserList::class.java)
+            startActivity(intent)
+            true
+        }
+
+        menuInflater.inflate(R.menu.option_settings, menu)
+        val menuSettings = menu?.findItem(R.id.settings)
+        menuSettings?.setOnMenuItemClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
             true
         }

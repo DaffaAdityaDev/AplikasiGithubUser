@@ -2,11 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <item
-        android:id="@+id/favorite"
-        android:icon="@drawable/favorite_fill"
-        android:title="@string/favorite"
-        app:showAsAction="ifRoom" />
-
+        android:id="@+id/settings"
+        android:icon="@drawable/list_bulleted"
+        android:title="@string/search"
+        app:showAsAction="collapseActionView|always" />
 </menu>

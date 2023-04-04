@@ -10,8 +10,9 @@ import com.bumptech.glide.Glide
 import com.example.githubuser.DetailUser
 import com.example.githubuser.ItemsItem
 import com.example.githubuser.R
+import com.example.githubuser.database.FavoriteUser
 import com.example.githubuser.databinding.UserItemBinding
-
+import com.example.githubuser.ui.favorite.FavoriteUserList
 
 
 class UserAdapter(private val listUser: List<ItemsItem>, private val context: Context) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
@@ -35,6 +36,9 @@ class UserAdapter(private val listUser: List<ItemsItem>, private val context: Co
             binding.root.setOnClickListener {
                 var intent = Intent(context, DetailUser::class.java)
                 intent.putExtra("username", user.login.toString())
+                if(context is FavoriteUserList) {
+                    (context as FavoriteUserList).isComingFromAnotherIntent = true // set the flag to true
+                }
                 context.startActivity(intent)
             }
         }

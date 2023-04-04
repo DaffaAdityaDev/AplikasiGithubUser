@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.githubuser.adapter.SectionPagerUserDetailAdapter
@@ -34,6 +35,8 @@ class DetailUser : AppCompatActivity() {
     private lateinit var favoriteRoomDatabase: FavoriteRoomDatabase
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
     private var user : FavoriteUser = FavoriteUser("","")
+    private var isFavorite = false
+    private lateinit var avatarUrl: String
 
     // data for tab layout and log TAG
     companion object {
@@ -63,12 +66,25 @@ class DetailUser : AppCompatActivity() {
                 favoriteRoomDatabase = FavoriteRoomDatabase.getDatabase(applicationContext)
                 user = favoriteRoomDatabase.favoriteUserDao().getSelectedUser(getIntentData() as String)
                 if (user == null) {
-                    insertFavoriteUser(FavoriteUser(getIntentData().toString(), ""))
+                    insertFavoriteUser(FavoriteUser(getIntentData().toString(), avatarUrl))
+                    isFavorite = true
                 } else {
-                    deleteFavoriteUser(FavoriteUser(getIntentData().toString(), ""))
+                    deleteFavoriteUser(FavoriteUser(getIntentData().toString(), avatarUrl))
+                    isFavorite = false
                 }
-                Log.d("bro", "onCreate:" + getIntentData())
             }
+            invalidateOptionsMenu()
+        }
+    }
+
+    private fun deleteAll() {
+        coroutineScope.launch {
+            withContext(Dispatchers.IO) {
+                // Access the database here
+                favoriteRoomDatabase = FavoriteRoomDatabase.getDatabase(applicationContext)
+                favoriteRoomDatabase.favoriteUserDao().deleteAll()
+            }
+            invalidateOptionsMenu()
         }
     }
 
@@ -95,13 +111,29 @@ class DetailUser : AppCompatActivity() {
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.fab_favorite, menu)
-
         val menuFavorite = menu?.findItem(R.id.favorite)
-//        if (user.username == getIntentData().toString()) {
-//            menu?.findItem(R.id.favorite)?.setIcon(R.drawable.favorite_border)
-//        } else {
-//            menu?.findItem(R.id.favorite)?.setIcon(R.drawable.favorite_fill)
-//        }
+
+        favoriteRoomDatabase = FavoriteRoomDatabase.getDatabase(applicationContext)
+        val userId = getIntentData() as String
+
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                // This block of code will be executed on a background thread.
+                user = favoriteRoomDatabase.favoriteUserDao().getSelectedUser(userId)
+            }
+            if (user == null) {
+                isFavorite = false
+            } else {
+                isFavorite = true
+            }
+
+            if (isFavorite == false) {
+                menu?.findItem(R.id.favorite)?.setIcon(R.drawable.favorite_border)
+            } else {
+                menu?.findItem(R.id.favorite)?.setIcon(R.drawable.favorite_fill)
+            }
+        }
+
         menuFavorite?.setOnMenuItemClickListener {
             checkFavoriteUser()
             true
@@ -114,6 +146,10 @@ class DetailUser : AppCompatActivity() {
     private fun getIntentData() : String? {
         val username = intent.getStringExtra("username")
         return username
+    }
+
+    private fun setAvatarUrl(user: UserDetailResponse) {
+        avatarUrl = user.avatarUrl
     }
 
     // binding data to view
@@ -147,6 +183,7 @@ class DetailUser : AppCompatActivity() {
                     if (listUserBody != null) {
                         showLoading(false)
                         setBindingData(listUserBody)
+                        setAvatarUrl(listUserBody)
                     } else {
                         showLoading(false)
                         Log.e(TAG, "onResponse: ${response.message()}")
