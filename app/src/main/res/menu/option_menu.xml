@@ -14,5 +14,9 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="collapseActionView|always" />
 
+<<<<<<< HEAD
 >>>>>>> 4f6385be51746be08655511a86d66c3a349693ad
+=======
+
+>>>>>>> addOnSubmission
 </menu>

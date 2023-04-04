@@ -16,7 +16,23 @@
     android:layout_height="wrap_content"
     tools:context=".DetailUser">
 
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.26999998"
+        tools:visibility="visible" />
+
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -72,15 +88,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
-                android:text="@string/no_data" />
+                android:text="" />
 
             <TextView
                 android:id="@+id/tv_github_name_detail_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:gravity="center_horizontal"
-                android:text="@string/no_data" />
+                android:gravity="center_horizontal" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -94,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:text="@string/no_data" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/tv_total_following"
@@ -102,8 +117,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
+<<<<<<< HEAD
                     android:text="@string/no_data" />
 >>>>>>> 4f6385be51746be08655511a86d66c3a349693ad
+=======
+                    android:text="" />
+>>>>>>> addOnSubmission
             </LinearLayout>
         </LinearLayout>
 
@@ -124,7 +143,7 @@
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
+                android:background="@color/teal_200"
                 app:tabTextColor="@android:color/white" />
 
             <androidx.viewpager2.widget.ViewPager2
